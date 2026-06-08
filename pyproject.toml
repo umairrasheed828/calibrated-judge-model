@@ -26,3 +26,24 @@ plugins = ["pydantic.mypy"]
 
 [tool.uv.sources]
 judgekit = { git = "https://github.com/umairrasheed828/judgekit.git" }
+torch = [{ index = "pytorch-cu128" }]
+
+[project.optional-dependencies]
+gpu = [
+    "torch",
+    "transformers",
+    "datasets",
+    "peft",
+    "trl",
+    "bitsandbytes",
+    "accelerate",
+    "mlflow",
+    "huggingface_hub",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+
