@@ -12,8 +12,10 @@ wheels/
 .mypy_cache/
 .ruff_cache/
 .pytest_cache/
-data/
-mlruns/
-models/
+
+# P4 scratch — anchored to repo root so they don't match src/data, src/models, etc.
+/data/
+/mlruns/
+/models/
 *.gguf
 *.safetensors
