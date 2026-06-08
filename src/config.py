@@ -10,6 +10,8 @@ class Settings(BaseSettings):
         ""  # optional so the module imports cleanly in CI (no key there)
     )
     teacher_model: str = "gpt-4o-mini"
+    mlflow_s3_bucket: str = ""  # reads MLFLOW_S3_BUCKET from .env
+    mlflow_experiment: str = "calibrated-judge"
 
 
 settings = Settings()
