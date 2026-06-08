@@ -39,6 +39,7 @@ gpu = [
     "accelerate",
     "mlflow",
     "huggingface_hub",
+    "boto3>=1.43.24",
 ]
 
 [[tool.uv.index]]
