@@ -19,3 +19,5 @@ wheels/
 /models/
 *.gguf
 *.safetensors
+mlflow.db
+*.db
