@@ -48,7 +48,12 @@ url = "https://download.pytorch.org/whl/cu128"
 explicit = true
 
 [[tool.mypy.overrides]]
-module = ["mlflow", "mlflow.*"]
+module = [
+    "mlflow", "mlflow.*",
+    "torch", "torch.*",
+    "transformers", "transformers.*",
+    "peft", "peft.*",
+]
 ignore_missing_imports = true
 
 
