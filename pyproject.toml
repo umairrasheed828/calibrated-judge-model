@@ -40,6 +40,7 @@ gpu = [
     "mlflow",
     "huggingface_hub",
     "boto3>=1.43.24",
+    "matplotlib>=3.10.9",
 ]
 
 [[tool.uv.index]]

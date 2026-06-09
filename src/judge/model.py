@@ -77,3 +77,31 @@ class FineTunedJudge:
             ),
         )
         return Judgment(scores=_parse_scores(text), rationale=text.strip())
+
+    def _digit_distribution(
+        self, messages: list[dict[str, str]], prefix: str
+    ) -> list[float]:
+        """P(score=1..5) from the model's logits at the digit right after `prefix`."""
+        prompt = cast(
+            str,
+            self.tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True
+            ),
+        )
+        ids = cast(Any, self.tokenizer(prompt + prefix, return_tensors="pt")).to(
+            self.model.device
+        )
+        with torch.no_grad():
+            logits = cast(Any, self.model(**ids)).logits[0, -1]
+        digit_ids = [
+            self.tokenizer.encode(str(d), add_special_tokens=False)[0]
+            for d in range(1, 6)
+        ]
+        probs = cast(Any, torch.softmax(logits[digit_ids], dim=-1))
+        return [float(p) for p in probs]
+
+    def faithfulness_confidence(self, sample: Sample) -> float:
+        """P(faithful) = P(faithfulness score >= 4), from the digit's logits."""
+        messages = build_messages(sample.input, sample.context or "", sample.output)
+        dist = self._digit_distribution(messages, '{"faithfulness": ')
+        return dist[3] + dist[4]
