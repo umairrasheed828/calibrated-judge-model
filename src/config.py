@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     teacher_model: str = "gpt-4o-mini"
     mlflow_s3_bucket: str = ""  # reads MLFLOW_S3_BUCKET from .env
     mlflow_experiment: str = "calibrated-judge"
+    hf_token: str = ""  # reads HF_TOKEN from .env
 
 
 settings = Settings()
